@@ -49,4 +49,17 @@ public class UtilityTest extends TestCase {
         assertEquals(true, Utility.isNumber(num2));
         assertEquals(false, Utility.isNumber(nonNum));
     }
+
+    public void testIsDeleteEquals(){
+        String url1 = "s1d5v63ds1v23ds1sd23f=";
+        String expectedUrl1 = "s1d5v63ds1v23ds1sd23f";
+        String url2 = "sd123136vw156w5wefwef16%sfdv256s";
+        String expectedUrl2 = "sd123136vw156w5wefwef16%sfdv256s";
+        String url3 = "sdfsjdkfcdsnjkvnwros1d23wer=";
+        String expectedUrl3 = "sdfsjdkfcdsnjkvnwros1d23wer";
+
+        assertEquals(Utility.deleteUrlLastEqual(url1),expectedUrl1);
+        assertEquals(Utility.deleteUrlLastEqual(url2),expectedUrl2);
+        assertEquals(Utility.deleteUrlLastEqual(url3),expectedUrl3);
+    }
 }
