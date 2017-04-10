@@ -1,6 +1,5 @@
 package univ.lecture.riotapi.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import univ.lecture.riotapi.model.CalcResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Map;
 
 /**
  * Created by corona10 on 2017. 4. 10..
