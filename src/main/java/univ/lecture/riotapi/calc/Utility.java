@@ -38,6 +38,13 @@ public class Utility {
         return false;
     }
 
+    public static String deleteUrlLastEqual(String url){
+        char last = url.charAt(url.length() - 1);
+        if(last == '=')
+            return url.substring(0,url.length() - 1);
+        return url;
+    }
+
     private Utility() {
 
     }

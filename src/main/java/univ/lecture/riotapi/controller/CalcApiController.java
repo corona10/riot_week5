@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import univ.lecture.riotapi.calc.CalcApp;
+import univ.lecture.riotapi.calc.Utility;
 import univ.lecture.riotapi.model.CalcRequest;
 import univ.lecture.riotapi.model.CalcResponse;
 
@@ -37,13 +38,16 @@ public class CalcApiController {
         final String url = calcEndpoint;
         CalcApp calcApp = new CalcApp();
         body = URLDecoder.decode(body,"UTF-8");
-        body = body.substring(0,body.length()-1);
+        body = Utility.deleteUrlLastEqual(body);
         String[] infix = body.split(" ");
         double result = calcApp.calc(infix);
         long timestamp = System.currentTimeMillis();
         CalcRequest request = new CalcRequest(groupNo, timestamp, result);
+        log.info("Destination IP: " + calcEndpoint);
         log.info(request);
         CalcResponse response = restTemplate.postForObject(url, request, CalcResponse.class);
         return response;
     }
+
+
 }
