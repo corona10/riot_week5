@@ -2,7 +2,6 @@ package univ.lecture.riotapi.calc;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 
 /**
@@ -45,35 +44,38 @@ public class CalcApp {
         this.postfix.clear();
         this.stack.clear();
 
-        for (String in : infix) {
-            if (Utility.isOperator(in)) {
-                if (")".equals(in)) {
-                    while (!this.stack.isEmpty() && !"(".equals(this.stack.peek())) {
-                        String popOp = this.stack.pop();
-                        this.postfix.add(popOp);
-                    }
-
-                    if (!this.stack.isEmpty() && "(".equals(this.stack.peek())) {
+        for (String token : infix) {
+            if (Utility.isNumber(token)) {
+                this.postfix.add(token);
+            } else if (Utility.isOperator(token)) {
+                while (!stack.isEmpty() && Utility.isOperator(stack.peek())) {
+                    String op2 = stack.peek();
+                    if (Operator.findOperator(token).compareTo(op2) <= 0) {
                         this.stack.pop();
-                    }
-                } else {
-                    while (!this.stack.isEmpty()
-                            && !Utility.isHigherPrirorty(in, stack.peek())) {
-                        String compareOp = this.stack.pop();
-                        if (!"(".equals(in)) {
-                            postfix.add(compareOp);
-                        } else {
-                            in = compareOp;
-                        }
-                    }
-                    this.stack.push(in);
+                        this.postfix.add(op2);
+                    } else break;
                 }
-            } else if (Utility.isNumber(in)) {
-                this.postfix.add(in);
+                stack.push(token);
+            } else if (token.equals("(")) {
+                this.stack.add(token);
+            } else if (token.equals(")")) {
+                while (!stack.isEmpty() && !stack.peek().equals("(")) {
+                    String popOp = this.stack.pop();
+                    this.postfix.add(popOp);
+                }
+                if (stack.isEmpty()) {
+                    throw new RuntimeException("Parenthesis mismatch");
+                }
+                this.stack.pop(); //try
+            } else {
+                throw new RuntimeException("Invalid token: " + token);
             }
         }
 
         while (!this.stack.isEmpty()) {
+            if (stack.peek().equals("(")) {
+                throw new RuntimeException("Parenthesis mismatch");
+            }
             this.postfix.add(this.stack.pop());
         }
         String[] result = new String[this.postfix.size()];
