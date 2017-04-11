@@ -42,6 +42,7 @@ public class CalcApiController {
         double result = calcApp.calc(infix);
         long timestamp = System.currentTimeMillis();
         CalcRequest request = new CalcRequest(groupNo, timestamp, result);
+        log.info("Destination IP: " + calcEndpoint);
         log.info(request);
         CalcResponse response = restTemplate.postForObject(url, request, CalcResponse.class);
         return response;
