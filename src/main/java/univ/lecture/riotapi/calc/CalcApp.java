@@ -57,7 +57,7 @@ public class CalcApp {
                 }
                 stack.push(token);
             } else if ("(".equals(token)) {
-                this.stack.add(token);
+                this.stack.push(token);
             } else if (")".equals(token)) {
                 while (!stack.isEmpty() && !"(".equals(stack.peek())) {
                     String popOp = this.stack.pop();
