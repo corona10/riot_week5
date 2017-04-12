@@ -31,15 +31,6 @@ public class UtilityTest extends TestCase {
         }
     }
 
-    public void testIsHigherPrirorty() {
-        assertEquals(true, Utility.isHigherPrirorty("*", "+"));
-        assertEquals(true, Utility.isHigherPrirorty("/", "+"));
-        assertEquals(false, Utility.isHigherPrirorty("+", "*"));
-        assertEquals(false, Utility.isHigherPrirorty("-", "*"));
-        assertEquals(false, Utility.isHigherPrirorty("*", "*"));
-        assertEquals(true, Utility.isHigherPrirorty("+", "+"));
-    }
-
     public void testIsNumber() {
         String num1 = "13";
         String num2 = "13.5";

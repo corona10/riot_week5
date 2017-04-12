@@ -1,7 +1,6 @@
 package univ.lecture.riotapi.configuration;
 
 import ch.qos.logback.access.tomcat.LogbackValve;
-import org.apache.catalina.Context;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
@@ -22,14 +21,10 @@ public class AccessLogConfiguration {
         return container -> {
             if (container instanceof TomcatEmbeddedServletContainerFactory) {
                 ((TomcatEmbeddedServletContainerFactory) container)
-                        .addContextCustomizers(new TomcatContextCustomizer() {
-
-                            @Override
-                            public void customize(Context context) {
-                                LogbackValve logbackValve = new LogbackValve();
-                                logbackValve.setFilename(fileName);
-                                context.getPipeline().addValve(logbackValve);
-                            }
+                        .addContextCustomizers((TomcatContextCustomizer) context -> {
+                            LogbackValve logbackValve = new LogbackValve();
+                            logbackValve.setFilename(fileName);
+                            context.getPipeline().addValve(logbackValve);
                         });
             }
         };
