@@ -50,7 +50,7 @@ public class CalcAppTest
 
     public void testCalc3() {
         CalcApp cal = new CalcApp();
-        String[] target = {"(",  "13", "+", "5", ")", "*", "2"};
+        String[] target = {"(", "13", "+", "5", ")", "*", "2"};
         double result = cal.calc(target);
         double expected = 36.0;
         assertEquals(expected, result);
@@ -66,7 +66,7 @@ public class CalcAppTest
 
     public void testCalc5() {
         CalcApp cal = new CalcApp();
-        String[] target = {"13", "*", "5", "+", "8", "/", "2" ,"+", "124.5"};
+        String[] target = {"13", "*", "5", "+", "8", "/", "2", "+", "124.5"};
         double result = cal.calc(target);
         double expected = 193.5;
         assertEquals(expected, result);
@@ -74,9 +74,10 @@ public class CalcAppTest
 
     public void testCalc6() {
         CalcApp cal = new CalcApp();
-        String[] target = {"13", "*", "5", "+", "8", "/", "2" ,"-", "124.5"};
+        String[] target = {"13", "*", "5", "+", "8", "/", "2", "-", "124.5"};
         double result = cal.calc(target);
         double expected = -55.5;
         assertEquals(expected, result);
     }
+
 }

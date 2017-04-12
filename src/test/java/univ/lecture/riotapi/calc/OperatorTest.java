@@ -22,13 +22,10 @@ public class OperatorTest extends TestCase {
 
     public void testOperatorException() {
         boolean failed = false;
-        try {
-            Operator.findOperator("abcd");
-        } catch(RuntimeException ex) {
-            failed = true;
-        } finally {
-            assertEquals(true, failed);
-        }
+
+        Operator op = Operator.findOperator("abcd");
+        assertNull(op);
+
     }
 
     public void testOperatorEvaluate1() {
@@ -53,5 +50,23 @@ public class OperatorTest extends TestCase {
         Operator op = Operator.findOperator("-");
         double result = op.evaluate(8, 4);
         assertEquals(4.0, result);
+    }
+
+    public void testCompareTo() {
+        Operator op = Operator.ADD;
+        int c = op.compareTo("*");
+        assertTrue(c < 0);
+    }
+
+    public void testCompareTo2() {
+        Operator op = Operator.ADD;
+        int c = op.compareTo("-");
+        assertTrue(c == 0);
+    }
+
+    public void testCompareTo3() {
+        Operator op = Operator.DIV;
+        int c = op.compareTo("+");
+        assertTrue(c > 0);
     }
 }
