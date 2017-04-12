@@ -103,16 +103,6 @@ public class UtilityTest extends TestCase {
         assertTrue(isHigherPrirorty("/", "/"));
     }
 
-    public void testIsNumber() {
-        String num1 = "13";
-        String num2 = "13.5";
-        String nonNum = "asdasd";
-
-        assertEquals(true, isNumber(num1));
-        assertEquals(true, isNumber(num2));
-        assertEquals(false, isNumber(nonNum));
-    }
-
     public void testIsNumberGivenInteger() {
         String num = "13";
         assertTrue(isNumber(num));
