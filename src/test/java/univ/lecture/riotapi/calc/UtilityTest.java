@@ -1,8 +1,12 @@
 package univ.lecture.riotapi.calc;
 
+import groovy.transform.PackageScope;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.junit.Ignore;
+
+import static univ.lecture.riotapi.calc.Utility.*;
 
 /**
  * Created by corona10 on 2017. 4. 5..
@@ -16,41 +20,113 @@ public class UtilityTest extends TestCase {
         return new TestSuite(UtilityTest.class);
     }
 
-    public void testIsOperator(){
+    public void testIsOperator() {
         String[] ops = {"+", "-", "*", "/"};
+        for (String op : ops) {
+            assertTrue(isOperator(op));
+        }
+    }
+
+    public void testIsNonOperator() {
         String[] nonOps = {"123", "3434", "asdasd"};
 
-        for (String op : ops)
-        {
-            assertEquals(true, Utility.isOperator(op));
-        }
-
-        for (String op : nonOps)
-        {
-            assertEquals(false, Utility.isOperator(op));
+        for (String op : nonOps) {
+            assertFalse(isOperator(op));
         }
     }
 
-    public void testIsNumber() {
-        String num1 = "13";
-        String num2 = "13.5";
-        String nonNum = "asdasd";
-
-        assertEquals(true, Utility.isNumber(num1));
-        assertEquals(true, Utility.isNumber(num2));
-        assertEquals(false, Utility.isNumber(nonNum));
+    // + and +-*/
+    public void testIsHigherPrirortyGivenPlusAndPlus() {
+        assertTrue(isHigherPrirorty("+", "+"));
     }
 
-    public void testIsDeleteEquals(){
-        String url1 = "s1d5v63ds1v23ds1sd23f=";
-        String expectedUrl1 = "s1d5v63ds1v23ds1sd23f";
-        String url2 = "sd123136vw156w5wefwef16%sfdv256s";
-        String expectedUrl2 = "sd123136vw156w5wefwef16%sfdv256s";
-        String url3 = "sdfsjdkfcdsnjkvnwros1d23wer=";
-        String expectedUrl3 = "sdfsjdkfcdsnjkvnwros1d23wer";
+    public void testIsHigherPrirortyGivenPlusAndMinus() {
+        assertTrue(isHigherPrirorty("+", "-"));
+    }
 
-        assertEquals(Utility.deleteUrlLastEqual(url1),expectedUrl1);
-        assertEquals(Utility.deleteUrlLastEqual(url2),expectedUrl2);
-        assertEquals(Utility.deleteUrlLastEqual(url3),expectedUrl3);
+    public void testIsHigherPrirortyGivenPlusAndMultiply() {
+        assertFalse(isHigherPrirorty("+", "*"));
+    }
+
+    public void testIsHigherPrirortyGivenPlusAnddivide() {
+        assertFalse(isHigherPrirorty("+", "/"));
+    }
+
+    // - and +-*/
+    public void testIsHigherPrirortyGivenMinusAndPlus() {
+        assertTrue(isHigherPrirorty("-", "+"));
+    }
+
+    public void testIsHigherPrirortyGivenMinusAndMinus() {
+        assertTrue(isHigherPrirorty("-", "-"));
+    }
+
+    public void testIsHigherPrirortyGivenMinusAndMultiply() {
+        assertFalse(isHigherPrirorty("-", "*"));
+    }
+
+    public void testIsHigherPrirortyGivenMinusAnddivide() {
+        assertFalse(isHigherPrirorty("-", "/"));
+    }
+
+    // * and +-*/
+    public void testIsHigherPrirortyGivenMultiplyAndPlus() {
+        assertTrue(isHigherPrirorty("*", "+"));
+    }
+
+    public void testIsHigherPrirortyGivenMultiplyAndMinus() {
+        assertTrue(isHigherPrirorty("*", "-"));
+    }
+
+    public void testIsHigherPrirortyGivenMultiplyAndMultiply() {
+        assertTrue(isHigherPrirorty("*", "*"));
+    }
+
+    public void testIsHigherPrirortyGivenMultiplyAnddivide() {
+        assertTrue(isHigherPrirorty("*", "/"));
+    }
+
+    // / and +-*/
+    public void testIsHigherPrirortyGivenDivideAndPlus() {
+        assertTrue(isHigherPrirorty("/", "+"));
+    }
+
+    public void testIsHigherPrirortyGivenDivideAndMinus() {
+        assertTrue(isHigherPrirorty("/", "-"));
+    }
+
+    public void testIsHigherPrirortyGivenDivideAndMultiply() {
+        assertTrue(isHigherPrirorty("/", "*"));
+    }
+
+    public void testIsHigherPrirortyGivenDivideAnddivide() {
+        assertTrue(isHigherPrirorty("/", "/"));
+    }
+
+    public void testIsNumberGivenInteger() {
+        String num = "13";
+        assertTrue(isNumber(num));
+    }
+
+    public void testIsNumberGivenRealnumber() {
+        String num = "3.14";
+        assertTrue(isNumber(num));
+    }
+
+    public void testIsNumberGivenNonNumber() {
+        String nonNum = "Hello123";
+        assertFalse(isNumber(nonNum));
+    }
+
+    public void testIsDeleteEqualsGivenEqualURL() {
+        String url = "s1d5v63ds1v23ds1sd23f=";
+        String expectedUrl = "s1d5v63ds1v23ds1sd23f";
+        assertEquals(deleteUrlLastEqual(url), expectedUrl);
+    }
+
+    public void testIsDeleteEqualsGivenNoNEqualURL() {
+        String url = "s1d5v63ds1v23ds1sd23f";
+        String expectedUrl = "s1d5v63ds1v23ds1sd23f";
+        assertEquals(deleteUrlLastEqual(url), expectedUrl);
     }
 }
