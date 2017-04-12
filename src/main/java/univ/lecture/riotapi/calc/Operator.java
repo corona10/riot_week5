@@ -37,6 +37,10 @@ public enum Operator {
         this.precedence = precedence;
     }
 
+    public static boolean isOperator(String s) {
+        return findOperator(s) != null;
+    }
+
     public abstract double evaluate(double firstOperand, double secondOperand);
 
     public static Operator findOperator(String symbol) {

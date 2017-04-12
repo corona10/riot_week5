@@ -40,7 +40,7 @@ public class CalcApiController {
         CalcApp calcApp = new CalcApp();
         String query = URLDecoder.decode(body, "UTF-8");
         query = Utility.deleteUrlLastEqual(query);
-        String[] infix = query.trim().split(" +");
+        String[] infix = Utility.tokenize(query);
         double result = calcApp.calc(infix);
         long timestamp = System.currentTimeMillis();
         CalcRequest request = new CalcRequest(groupNo, timestamp, result);
