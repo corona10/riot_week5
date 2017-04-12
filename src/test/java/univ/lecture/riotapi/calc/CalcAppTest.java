@@ -76,20 +76,28 @@ public class CalcAppTest
         assertEquals(expected, result);
     }
 
-//    public void testCalc7() {
-//        CalcApp cal = new CalcApp();
-//        String[] target = {"-", "1"};
-//        double result = cal.calc(target);
-//        double expected = -1;
-//        assertEquals(expected, result);
-//    }
-//
-//    public void testCalc8() {
-//        CalcApp cal = new CalcApp();
-//        String[] target = {"2", "+", "-", "1"};
-//        double result = cal.calc(target);
-//        double expected = 1;
-//        assertEquals(expected, result);
-//    }
+    public void testCalc7() {
+        CalcApp cal = new CalcApp();
+        String s = "10*(10+(80+2))";
+        double result = cal.calc(Utility.tokenize(s));
+        double expected = 10 * (10 + (80 + 2));
+        assertEquals(expected, result);
+    }
+
+    public void testCalc8() {
+        CalcApp cal = new CalcApp();
+        String s = "10*(2+80/2 *125)/5";
+        double result = cal.calc(Utility.tokenize(s));
+        double expected = 10 * (2 + 80 / 2 * 125) / 5;
+        assertEquals(expected, result);
+    }
+
+    public void testCalc9() {
+        CalcApp cal = new CalcApp();
+        String s = "10*(2+2)";
+        double result = cal.calc(Utility.tokenize(s));
+        double expected = 10 * (2 + 2);
+        assertEquals(expected, result);
+    }
 
 }
