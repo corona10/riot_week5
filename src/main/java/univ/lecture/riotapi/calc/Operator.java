@@ -54,6 +54,9 @@ public enum Operator {
     }
 
     public int compareTo(String op) {
-        return this.getPrecedence() - Operator.findOperator(op).getPrecedence();
+        Operator o = Operator.findOperator(op);
+        if (o == null) throw new RuntimeException("No such operator: " + op);
+        return this.getPrecedence() - o.getPrecedence();
+
     }
 }

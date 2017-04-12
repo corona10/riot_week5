@@ -37,16 +37,15 @@ public class CalcApiController {
     public CalcResponse queryCalc(@RequestBody String body) throws UnsupportedEncodingException {
         final String url = calcEndpoint;
         CalcApp calcApp = new CalcApp();
-        body = URLDecoder.decode(body, "UTF-8");
-        body = Utility.deleteUrlLastEqual(body);
-        String[] infix = body.trim().split(" +");
+        String query = URLDecoder.decode(body, "UTF-8");
+        query = Utility.deleteUrlLastEqual(query);
+        String[] infix = query.trim().split(" +");
         double result = calcApp.calc(infix);
         long timestamp = System.currentTimeMillis();
         CalcRequest request = new CalcRequest(groupNo, timestamp, result);
         log.info("Destination IP: " + calcEndpoint);
         log.info(request);
-        CalcResponse response = restTemplate.postForObject(url, request, CalcResponse.class);
-        return response;
+        return restTemplate.postForObject(url, request, CalcResponse.class);
     }
 
 

@@ -56,24 +56,24 @@ public class CalcApp {
                     } else break;
                 }
                 stack.push(token);
-            } else if (token.equals("(")) {
+            } else if ("(".equals(token)) {
                 this.stack.add(token);
-            } else if (token.equals(")")) {
-                while (!stack.isEmpty() && !stack.peek().equals("(")) {
+            } else if (")".equals(token)) {
+                while (!stack.isEmpty() && !"(".equals(stack.peek())) {
                     String popOp = this.stack.pop();
                     this.postfix.add(popOp);
                 }
                 if (stack.isEmpty()) {
                     throw new RuntimeException("Parenthesis mismatch");
                 }
-                this.stack.pop(); //try
+                this.stack.pop();
             } else {
                 throw new RuntimeException("Invalid token: " + token);
             }
         }
 
         while (!this.stack.isEmpty()) {
-            if (stack.peek().equals("(")) {
+            if ("(".equals(stack.peek())) {
                 throw new RuntimeException("Parenthesis mismatch");
             }
             this.postfix.add(this.stack.pop());
