@@ -12,6 +12,7 @@ import univ.lecture.riotapi.calc.CalcApp;
 import univ.lecture.riotapi.calc.Utility;
 import univ.lecture.riotapi.model.CalcRequest;
 import univ.lecture.riotapi.model.CalcResponse;
+import univ.lecture.riotapi.model.EndPointResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -45,7 +46,11 @@ public class CalcApiController {
         CalcRequest request = new CalcRequest(groupNo, timestamp, result);
         log.info("Destination IP: " + calcEndpoint);
         log.info(request);
-        return restTemplate.postForObject(url, request, CalcResponse.class);
+
+        EndPointResponse response = restTemplate.postForObject(url, request, EndPointResponse.class);
+        log.info(response);
+        String msg = response.getMsg();
+        return new CalcResponse(groupNo, timestamp, result, msg);
     }
 
 
