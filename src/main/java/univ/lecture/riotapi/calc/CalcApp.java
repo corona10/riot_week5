@@ -29,7 +29,7 @@ public class CalcApp {
         for (String in : postfix) {
             if (Utility.isNumber(in)) {
                 this.stack.push(in);
-            } else if (Utility.isOperator(in)) {
+            } else if (Operator.isOperator(in)) {
                 Operator operator = Operator.findOperator(in);
                 double secondOperand = Double.parseDouble(this.stack.pop());
                 double firstOperand = Double.parseDouble(this.stack.pop());
@@ -47,8 +47,8 @@ public class CalcApp {
         for (String token : infix) {
             if (Utility.isNumber(token)) {
                 this.postfix.add(token);
-            } else if (Utility.isOperator(token)) {
-                while (!stack.isEmpty() && Utility.isOperator(stack.peek())) {
+            } else if (Operator.isOperator(token)) {
+                while (!stack.isEmpty() && Operator.isOperator(stack.peek())) {
                     String op2 = stack.peek();
                     if (Operator.findOperator(token).compareTo(op2) <= 0) {
                         this.stack.pop();

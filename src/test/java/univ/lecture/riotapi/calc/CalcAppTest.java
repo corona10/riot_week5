@@ -28,10 +28,6 @@ public class CalcAppTest
     /**
      * Rigourous Test :-)
      */
-    public void testApp() {
-        assertTrue(true);
-    }
-
     public void testCalc1() {
         CalcApp cal = new CalcApp();
         String[] target = {"13", "+", "5"};
@@ -79,5 +75,21 @@ public class CalcAppTest
         double expected = -55.5;
         assertEquals(expected, result);
     }
+
+//    public void testCalc7() {
+//        CalcApp cal = new CalcApp();
+//        String[] target = {"-", "1"};
+//        double result = cal.calc(target);
+//        double expected = -1;
+//        assertEquals(expected, result);
+//    }
+//
+//    public void testCalc8() {
+//        CalcApp cal = new CalcApp();
+//        String[] target = {"2", "+", "-", "1"};
+//        double result = cal.calc(target);
+//        double expected = 1;
+//        assertEquals(expected, result);
+//    }
 
 }
